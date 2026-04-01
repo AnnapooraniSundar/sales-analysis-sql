@@ -1,0 +1,33 @@
+
+-- Sales trend over time
+SELECT "Year-Month", SUM(Amount) AS total_sales, SUM(Profit) AS total_profit
+FROM Sales
+GROUP BY "Year-Month"
+ORDER BY "Year-Month";
+
+-- Customer order frequency
+SELECT CustomerName, COUNT(DISTINCT "Order ID") AS total_orders
+FROM Sales
+GROUP BY CustomerName
+ORDER BY total_orders DESC;
+
+-- Sub-category demand
+SELECT "Sub-Category", SUM(Quantity) AS total_quantity_sold
+FROM Sales
+GROUP BY "Sub-Category"
+ORDER BY total_quantity_sold DESC;
+
+-- Profit by category
+SELECT Category, SUM(Profit) AS total_profit
+FROM Sales
+GROUP BY Category
+ORDER BY total_profit DESC;
+
+-- Sales, profit and profit margin by category
+SELECT Category,
+       SUM(Amount) AS total_sales,
+       SUM(Profit) AS total_profit,
+       ROUND(SUM(Profit) * 1.0 / SUM(Amount), 3) AS profit_margin
+FROM Sales
+GROUP BY Category
+ORDER BY profit_margin DESC;
